@@ -1,0 +1,6 @@
+spring:
+  main:
+    banner-mode: "off"
+
+forest-file-name : forest.json
+field-of-view : 35
