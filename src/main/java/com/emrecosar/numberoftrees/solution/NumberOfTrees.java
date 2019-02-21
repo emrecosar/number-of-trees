@@ -2,9 +2,6 @@ package com.emrecosar.numberoftrees.solution;
 
 import com.emrecosar.numberoftrees.model.Tree;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,26 +11,27 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class NumberOfTrees {
 
-    private final Logger logger = LoggerFactory.getLogger(NumberOfTrees.class);
+    private final Logger logger = Logger.getLogger(NumberOfTrees.class.toString());
 
     private Tree[] trees;
 
     public NumberOfTrees(String fileName) throws IOException {
 
         try {
-            File forestFile = ResourceUtils.getFile("classpath:" + fileName);
+            File forestFile = new File(getClass().getClassLoader().getResource(fileName).getFile());
             trees = new ObjectMapper().readValue(Files.readAllBytes(forestFile.toPath()), Tree[].class);
             logger.info("forest file now in memory! Number of trees : " + trees.length);
         } catch (FileNotFoundException fnfe) {
-            logger.error("forest file not found!", fnfe);
+            logger.severe("forest file not found!" + fnfe.getMessage());
             throw fnfe;
         } catch (IOException ioe) {
-            logger.error("forest file not proper!", ioe);
+            logger.severe("forest file not proper!" + ioe.getMessage());
             throw ioe;
         }
 

@@ -1,39 +1,43 @@
-plugins {
-	id 'org.springframework.boot' version '2.1.3.RELEASE'
-	id 'java'
-}
-
-apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'application'
 
 group = 'com.emrecosar.numberoftrees'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = '1.8'
 
+sourceSets.main {
+	java.srcDirs = ['src/main/java']
+	resources.srcDirs = ['src/main/resources']
+}
+
+mainClassName = "com.emrecosar.numberoftrees.NumberOfTreesApplication"
+
+jar {
+	manifest {
+        attributes 'Implementation-Title': 'Number of Trees',
+                'Implementation-Version': version,
+                'Main-Class': mainClassName
+	}
+}
+
 repositories {
-	mavenCentral()
+	jcenter()
 }
 
 dependencies {
-
-	compile (
-			[group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.4.1'],
-			[group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'],
-			[group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1']
-	)
-
-	implementation 'org.springframework.boot:spring-boot-starter'
+	compile 'com.fasterxml.jackson.core:jackson-core:2.4.1'
+	compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.1'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
 }
 
-task generateForest {
-	doLast {
-		bootRun { systemProperty "command", "generate-forest" }
-	}
+task generateForest(type: JavaExec, description: "Runs forest generation") {
+	classpath = sourceSets.main.runtimeClasspath
+	main = mainClassName
+	args "generate-forest"
 }
-generateForest.finalizedBy bootRun
 
-task numberOfTrees {
-	doLast {
-		bootRun { systemProperty "command", "number-of-trees" }
-	}
+task numberOfTrees(type: JavaExec, description: "Runs number-of-tree solution") {
+	classpath = sourceSets.main.runtimeClasspath
+	main = mainClassName
+	args "number-of-trees"
 }
-numberOfTrees.finalizedBy bootRun

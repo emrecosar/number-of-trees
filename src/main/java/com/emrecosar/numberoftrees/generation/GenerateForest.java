@@ -32,7 +32,7 @@ public class GenerateForest {
         try {
             new ObjectMapper().writer()
                     .writeValue(new File(forestFileName), forest);
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.severe("Your forest '" + forestFileName + "' generation has an error!");
             e.printStackTrace();
             throw e;
@@ -42,7 +42,7 @@ public class GenerateForest {
 
     }
 
-    private static double generatePoint(){
+    private static double generatePoint() {
         return (sr.nextDouble() * (MAX - MIN)) + MIN;
     }
 
