@@ -1,6 +1,7 @@
-spring:
-  main:
-    banner-mode: "off"
-
 forest-file-name : forest.json
 field-of-view : 35
+forest-size : 1000
+
+parameter : command
+generate-forest : generate-forest
+number-of-trees : number-of-trees

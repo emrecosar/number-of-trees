@@ -15,31 +15,25 @@ public class Tree implements Comparator<Tree> {
     @JsonIgnore
     private long countofTreesTill;
 
+
     public Tree() {
+    }
+
+    public Tree(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
     public double getX() {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
     }
 
-    public void setY(double y) {
-        this.y = y;
-    }
-
     public Float getAngle() {
         return angle;
-    }
-
-    public void setAngle(Float angle) {
-        this.angle = angle;
     }
 
     public long getCountofTreesTill() {
@@ -51,7 +45,7 @@ public class Tree implements Comparator<Tree> {
     }
 
     public void calculateAngle() {
-        float angle = (float) Math.toDegrees(Math.atan2(this.y, this.x));
+        float angle = (float) Math.toDegrees(Math.atan2(this.getY(), this.getX()));
 
         if (angle < 0) {
             angle += 360;

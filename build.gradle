@@ -22,5 +22,18 @@ dependencies {
 	)
 
 	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+task generateForest {
+	doLast {
+		bootRun { systemProperty "command", "generate-forest" }
+	}
+}
+generateForest.finalizedBy bootRun
+
+task numberOfTrees {
+	doLast {
+		bootRun { systemProperty "command", "number-of-trees" }
+	}
+}
+numberOfTrees.finalizedBy bootRun
